@@ -9,14 +9,14 @@ uzhungen.exe -s .\Affixes\*.qoida -d .\Dictionaries\*.txt
 ## Qoidalar fayli
 
 Qo‘shimchalar to‘plamini berish uchun SFX bloki ishlatiladi. Bitta guruhga oid qo‘shimchalar (masalan, kelishik, egalik qo‘shimchalari) bir blok ostida kiritiladi. Sintaksis:
-
+```
 SFX <Qo‘SHIMCHA_GURUHI>
 	
 	<Qo‘SHIMCHA_NOMI> = "<Qo‘SHIMCHA>" [ENDSWITH "<REGEX>" [STRIP [<QIRQILADIGAN_BELGI>]]]
 	...
 
 END SFX
-
+```
 Sintaksisda berilgan to‘rtburchak qavs ichidagi buyruqlar majburiy emas, tushirib qoldirilishi mumkin.
 <Qo‘SHIMCHA_GURUHI> - Qo‘shimchalar guruhining nomi, masalan EGALIK. TAG blokida qo‘shimchalar ketma-ketliklarni berishda ishlatiladi.
 <Qo‘SHIMCHA_NOMI> - Qo‘shimchaning nomi, masalan 1-SHAXS BIRLIK.
@@ -26,7 +26,7 @@ ENDSWITH "<REGEX>" - Bu qo‘shimchalar guruhidan oldingan qo‘shimcha yoki o�
 STRIP <QIRQILADIGAN_BELGI> - So‘z oxiridan qirqiladigan harf(lar)ni berish buyrug‘i. Agar qirqiladigan belgi berilmasa harflar avtomat qirqiladi (qolipli ifodaga mos tarzda)
 
 Misol:
-
+```
 SFX EGALIK 
 
     [ENDSWITH "q" STRIP]        # Agar bundan oldingi kelgan qo‘shimcha yoki o‘zak so‘z "q" harfi bilan tugasa (ENDSWITH "q"), "q" ni tashlab yubor (STRIP)
@@ -44,28 +44,28 @@ SFX EGALIK
     3SHB = "si"
 
 END SFX
-
+```
 
 Qo‘shimchalar ketma-ketligini berish uchun TAG bloki ishlatiladi. Bitta so‘z turkumiga oid qoidalarni bitta shunda TAG bloki ostida yoziladi. Sintaksis:
-
+```
 TAG <TURKUM_NOMI>
 	
 	<QOIDA_NOMI> = <Qo‘SHIMCHA_GURUHI_1> + <Qo‘SHIMCHA_GURUHI_2> + ... + <Qo‘SHIMCHA_GURUHI_N> 
 
 END TAG
-
+```
 <QOIDA_NOMI> - Morfologik ma’lumot sifatida ishlatish mumkin.
 <Qo‘SHIMCHA_GURUHI_1>, <Qo‘SHIMCHA_GURUHI_2>, <Qo‘SHIMCHA_GURUHI_N> - Qo‘shimchalar guruhi nomlari. Bu guruhlar qaysi ketma-ketlikda kelishiga qarab qo‘shimchalar shunday tarzda qo‘shiladi. Qo‘shish ifodasida to‘rtburchak va shaklli qavslardan foydalanish mumkin. To‘rtburchak qavs ichida keladigan qo‘shimchalar guruhlari majburiy bo‘lmagan, tushib qolishi mumkin bo‘lgan qo‘shimchalarni, shaklli qavs ichida esa majburiy qo‘shimchalarni yozish mumkin.
 
 Misol:
-
+```
 TAG OT
 	
 	_ = EGALIK + [KELISHIK, YUKLAMA]			# EGALIK dan keyin yo KELISHIK yoki YUKLAMA kelishi mumkin, yoki ikkalasi ham kelmasligi mumkin ([] ichida)
 	_ = {Ko‘PLIK, KELISHIK} + [YUKLAMA]			# Ko‘PLIK yoki KELISHIK dan biridan ({} ichida) keyin YUKLAMA kelishi mumkin, lekin majburiy emas.
 
 END TAG
-
+```
 Ichida hech qanday ketma-ketlik yozilmagan teg ham to‘g‘ri hisoblanadi. Bunday teg bilan belgilangan so‘zlarda bu teg morfologik ma’lumot sifatida ishlatilishi mumkin.
 
 Fayl ichida izohlardan foydalanish mumkin. Izoh # belgisi bilan boshlanadi va qayerda ushbu qo‘yilishidan qat’i nazar qator oxirigacha amal qiladi. Ya’ni # belgisidan to shu qator oxirigacha izoh hisoblanadi.
@@ -76,7 +76,7 @@ So‘zlar har bir qatorga alohida qilib kiritiladi. So‘zdan keyin "/" belgisi 
 Agar bir so‘zga bir nechta TAG berilishi kerak bo‘lsa, teglar vergul bilan ajratib yoziladi. Yoki so‘zga hech qanday teg bermaslik uchun so‘zdan keyin hech narsa yozilmaydi. 
 
 Misol:
-
+```
 olma/OT
 
 kitob/OT
@@ -84,5 +84,5 @@ kitob/OT
 yaxshi/OT,SIFAT
 
 va
-
+```
 So‘zlar kichik harflar bilan yoziladi. Agar so‘zda katta harflar ham mavjud bo‘lsa (masalan birinchi harf) ushbu register Hunspell orqali tekshirilganda ham huddi shunday holda yozilsagina to‘g‘ri hisoblanadi. Bu asosan atoqli nomlarni yozishda ishlatiladi. Masalan, "o‘zbekiston" deb yozilgan so‘z "o‘zbekiston" shaklida yozilganda Hunspell uni noto‘g‘ri hisoblaydi.
