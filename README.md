@@ -1,4 +1,4 @@
-# O‘zbek tili uchun Hunspell lug‘atlarini hosil qilish uchun qoidalar to‘plami
+# O‘zbek tili uchun Hunspell lug‘atlarini hosil qilish uchun qoidalar to‘plami va generator
 
 Qo‘shimchalar turlari va ularni qay tartibda kelishi \Affixes\*.qoida fayllarida, so‘zlarning ro‘yxati esa \Dictionaries\*.txt fayllarda beriladi.
 Hunspell lug‘atlarini hosil qilish uchun:
