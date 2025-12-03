@@ -102,4 +102,6 @@ yaxshi/OT/SIFAT
 
 va
 ```
+Yuqoridagi misoldagi holatga ko‘ra "olma" so‘ziga OT tegi ostida berilgan barcha qo‘shimchalar ketma-ketligi to‘g‘ri hisoblanadi va AFF faylda ham shunga mos ravishda flaglar hosil qilinadi.
 So‘zlar kichik harflar bilan yoziladi. Agar so‘zda katta harflar ham mavjud bo‘lsa (masalan birinchi harf) ushbu register Hunspell orqali tekshirilganda ham huddi shunday holda yozilsagina to‘g‘ri hisoblanadi. Bu asosan atoqli nomlarni yozishda ishlatiladi. Masalan, "o‘zbekiston" deb yozilgan so‘z "o‘zbekiston" shaklida yozilganda Hunspell uni noto‘g‘ri hisoblaydi.
+
