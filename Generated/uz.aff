@@ -4,10 +4,7 @@
 #
 # Copyright (C) 2025 Alisher Jalolov <alisher.djalalov@gmail.com>
 #
-# License: GPLv3
-# There should be a copy of both of this licenses included
-# with every distribution of this dictionary. Modified
-# versions using the GPL may only include the GPL
+# License: MIT
 
 LANG uz_UZ
 SET UTF-8
