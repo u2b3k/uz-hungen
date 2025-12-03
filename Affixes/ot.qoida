@@ -1,0 +1,134 @@
+﻿# ===== Egalik qo'shimchalari ===== 
+
+SFX EGALIK 
+
+    [ENDSWITH "q" STRIP]        # quloq => qulog'im, boshog => boshog'i
+    1SHB = "g‘im"
+    1SHK = "g‘imiz"
+    2SHB = "g‘ing"
+    2SHK = "g‘ingiz"
+    3SHB = "g‘i"
+
+    [ENDSWITH "k" STRIP]        # kaltak => kaltagim, kiyik => kiyigi
+    1SHB = "gim"
+    1SHK = "gimiz"
+    2SHB = "ging"
+    2SHK = "gingiz"
+    3SHB = "gi"
+
+    [ENDSWITH "[ai]"]           # oila => oilam, ini => iningiz
+    1SHB = "m"
+    1SHK = "miz"
+    2SHB = "ng"
+    2SHK = "ngiz"
+    3SHB = "si"
+
+    [ENDSWITH "[eou‘]"]         # tole' => tolesi, urg'u => urg'uying
+    1SHB = "yim"
+    1SHK = "yimiz"
+    2SHB = "ying"
+    2SHK = "yingiz"
+    3SHB = "si"
+
+    [ENDSWITH "[^aieouqk‘]"]    # kitob => kitobimiz, # ohang => ohangi
+    1SHB = "im"
+    1SHK = "imiz"
+    2SHB = "ing"
+    2SHK = "ingiz"
+    3SHB = "i"
+
+    [CLASS .IL ONLYROOT]
+    [ENDSWITH "il" STRIP]       # singil => singlim, ko'ngil => ko'ngli
+    1SHB = "lim"
+    1SHK = "limiz"
+    2SHB = "ling"
+    2SHK = "lingiz"
+    3SHB = "li"
+
+    [ENDSWITH "ar" STRIP]       # singil => singlim, ko'ngil => ko'ngli
+    1SHB = "rim"
+    1SHK = "rimiz"
+    2SHB = "ring"
+    2SHK = "ringiz"
+    3SHB = "ri"
+    
+END SFX
+
+
+# ===== Tasdiq qo'shimchalari ===== 
+
+SFX TASDIQ
+
+    1SHB = "man"
+    1SHK = "miz"
+    K-1SHB = "larman"
+    K-1SHK = "larmiz"
+    2SHB = "san"
+    2SHK = "siz"
+    K-2SHB = "larsan"
+    K-2SHK = "larsiz"
+    3SHK = "lar"
+
+END SFX
+
+# ===== Ko'plik qo'shimchasi ===== 
+
+SFX KO'PLIK 
+
+    LAR = "lar" 
+
+END SFX
+
+# ===== Kelishik qo'shimchalari ===== 
+
+SFX KELISHIK 
+
+    TSH = "ni"
+    QRT = "ning"
+    O'P = "da"
+    CHQ = "dan"
+    O'PH = "dagi"
+    O'PHD = "dagidek"
+
+    [ENDSWITH "q"]                  # quloq => quloqqa, chiroq => chiroqqa
+    JNL = "qa"
+    JNL = "qacha"
+    
+    [ENDSWITH "k"]                  # kaltak => kaltakka
+    JNL = "ka"
+    JNL = "kacha"
+    
+    [ENDSWITH "[^qk]"]             # odam => odamga
+    JNL = "ga"
+    JNL = "gacha"
+
+END SFX
+
+# ===== Yuklama qo'shimchalar ===== 
+
+SFX YUKLAMA
+    
+    MI? = "mi"
+    CHI? = "chi"
+    DIR = "dir"
+    DA = "da"
+    KU = "ku"
+
+END SFX
+
+SFX KICHRAYTMA
+    
+    CHA = "cha"
+    DEK = "dek"
+    SIMON = "simon"
+
+END SFX
+
+# ===== OT so'z turkumi uchun qoidalar ===== 
+
+TAG OT 
+
+    _ = [KICHRAYTMA] + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = [TASDIQ] + [YUKLAMA]
+
+END TAG

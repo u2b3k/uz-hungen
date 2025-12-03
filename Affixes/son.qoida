@@ -1,0 +1,22 @@
+# =============================================================
+# SON so'z turkumi uchun qoidalar
+# =============================================================
+SFX SON 
+    
+    [ENDSWITH "[aeiou]"]
+    TRT = "nchi" 
+    [ENDSWITH "[^aeiou]"]
+    TRT = "inchi"
+    [ENDSWITH "[aeiou]" STRIP]
+    JML = "ovlon" 
+    [ENDSWITH "[^aeiou]"]
+    JML = "ovlon"
+
+END SFX
+
+TAG SON
+
+    _ = [SON]
+
+END TAG
+

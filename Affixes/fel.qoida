@@ -1,0 +1,59 @@
+# ===== Zamon qo'shimchalari ===== 
+
+SFX ZAMON
+    
+    O'T = "gan" 
+    HOZ = "yap" 
+
+    [ENDSWITH "[aeiou‘]"]
+    KLJ = "y" 
+
+    [ENDSWITH "[^aeiou‘]"]
+    KLJ = "a" 
+
+END SFX
+
+SFX ZAMON2
+    
+    O'T = "gan"
+
+    [ENDSWITH "[aeiou‘]"]
+    HOZ = "yotgan"
+    [ENDSWITH "[^aeiou‘]"]
+    HOZ = "ayotgan"
+
+    KLJ = "moqchi"
+
+END SFX
+
+# ===== Kishiik qo'shimchalari ===== 
+
+SFX KISHILIK
+    
+    1SHB = "man"
+    1SHK = "miz"
+    2SHB = "san"
+    2SHK = "siz"
+    2SHK = "sanlar"
+    2SHK = "sizlar"
+    3SHB = "di"
+    3SHK = "dilar"
+
+END SFX
+
+# ===== Bo'lishsiz fe'l qo'shimchasi ===== 
+
+SFX BO'LISHSIZ
+    
+    _ = "ma"
+
+END SFX
+
+# ===== FE'L so'z turkumi uchun qoidalar ===== 
+
+TAG FE'L
+
+    _ = [BO'LISHSIZ] + [ZAMON] + [KISHILIK] + [YUKLAMA]
+    _ = [ZAMON2] + [KISHILIK]
+
+END TAG
