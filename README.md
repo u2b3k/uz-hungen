@@ -6,6 +6,8 @@ Hunspell lug‘atlarini hosil qilish uchun:
 uzhungen.exe -s .\Affixes\*.qoida -d .\Dictionaries\*.txt
 ```
 
+Natijada Generated papkasida uz.aff va uz.dic fayllarini hosil qiladi. 
+
 ## Qoidalar fayli
 
 Qo‘shimchalar to‘plamini berish uchun SFX bloki ishlatiladi. Bitta guruhga oid qo‘shimchalar (masalan, kelishik, egalik qo‘shimchalari) bir blok ostida kiritiladi. Sintaksis:
