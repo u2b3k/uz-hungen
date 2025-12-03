@@ -75,7 +75,7 @@ Fayl ichida izohlardan foydalanish mumkin. Izoh # belgisi bilan boshlanadi va qa
 ## So‘zlar fayli
 
 So‘zlar har bir qatorga alohida qilib kiritiladi. So‘zdan keyin "/" belgisi va undan keyin qoida faylidagi biror TAG nomi berilishi mumkin.
-Agar bir so‘zga bir nechta TAG berilishi kerak bo‘lsa, teglar vergul bilan ajratib yoziladi. Yoki so‘zga hech qanday teg bermaslik uchun so‘zdan keyin hech narsa yozilmaydi. 
+Agar bir so‘zga bir nechta TAG berilishi kerak bo‘lsa, teglar "/" belgisi bilan ajratib yoziladi. Yoki so‘zga hech qanday teg bermaslik uchun so‘zdan keyin hech narsa yozilmaydi. 
 
 Misol:
 ```
@@ -83,7 +83,7 @@ olma/OT
 
 kitob/OT
 
-yaxshi/OT,SIFAT
+yaxshi/OT/SIFAT
 
 va
 ```
