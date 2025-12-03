@@ -1,14 +1,14 @@
-# ===== Zamon qo'shimchalari ===== 
+ï»¿# ===== Zamon qo'shimchalari ===== 
 
 SFX ZAMON
     
     O'T = "gan" 
     HOZ = "yap" 
 
-    [ENDSWITH "[aeiou‘]"]
+    [ENDSWITH "[aeiouâ€˜]"]
     KLJ = "y" 
 
-    [ENDSWITH "[^aeiou‘]"]
+    [ENDSWITH "[^aeiouâ€˜]"]
     KLJ = "a" 
 
 END SFX
@@ -17,9 +17,9 @@ SFX ZAMON2
     
     O'T = "gan"
 
-    [ENDSWITH "[aeiou‘]"]
+    [ENDSWITH "[aeiouâ€˜]"]
     HOZ = "yotgan"
-    [ENDSWITH "[^aeiou‘]"]
+    [ENDSWITH "[^aeiouâ€˜]"]
     HOZ = "ayotgan"
 
     KLJ = "moqchi"
