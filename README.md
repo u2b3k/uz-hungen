@@ -63,11 +63,26 @@ Misol:
 ```
 TAG OT
 	
-	_ = EGALIK + [KELISHIK, YUKLAMA]			# EGALIK dan keyin yo KELISHIK yoki YUKLAMA kelishi mumkin, yoki ikkalasi ham kelmasligi mumkin ([] ichida)
-	_ = {Ko‘PLIK, KELISHIK} + [YUKLAMA]			# Ko‘PLIK yoki KELISHIK dan biridan ({} ichida) keyin YUKLAMA kelishi mumkin, lekin majburiy emas.
+	O1 = EGALIK + [KELISHIK, YUKLAMA]			# EGALIK dan keyin yo KELISHIK yoki YUKLAMA kelishi mumkin, yoki ikkalasi ham kelmasligi mumkin ([] ichida)
+	O2 = {KO‘PLIK, KELISHIK} + [YUKLAMA]			# Ko‘PLIK yoki KELISHIK dan biridan ({} ichida) keyin YUKLAMA kelishi mumkin, lekin majburiy emas.
 
 END TAG
 ```
+Yuqoridagi ikkita qoida quyidagicha qo'shimchalar ketma-ketligini hosil qiladi:
+
+```
+# O1 uchun
+EGALIK
+EGALIK + KELISHIK
+EGALIK + YUKLAMA
+
+# O2 uchun
+KO‘PLIK
+KO‘PLIK + YUKLAMA
+KELISHIK
+KELISHIK + YUKLAMA
+```
+
 Ichida hech qanday ketma-ketlik yozilmagan teg ham to‘g‘ri hisoblanadi. Bunday teg bilan belgilangan so‘zlarda bu teg morfologik ma’lumot sifatida ishlatilishi mumkin.
 
 Fayl ichida izohlardan foydalanish mumkin. Izoh # belgisi bilan boshlanadi va qayerda ushbu qo‘yilishidan qat’i nazar qator oxirigacha amal qiladi. Ya’ni # belgisidan to shu qator oxirigacha izoh hisoblanadi.
