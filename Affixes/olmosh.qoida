@@ -1,1 +1,14 @@
-﻿
+﻿SFX OLM-KISHILIK
+	
+	[ENDSWITH "[aeiou]"]
+	_ = "nga"
+	[ENDSWITH "[^aeiou]"]
+	_ = "ga"
+
+END SFX
+
+TAG OLMOSH-KR
+	
+	_ = OLM-KISHILIK
+
+END TAG
