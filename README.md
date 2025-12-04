@@ -54,6 +54,42 @@ SFX EGALIK
 END SFX
 ```
 
+Bir qolipga tushmaydigan, harf almashishiga uchraydigan istisno holatlarni quyidagicha berish mumkin:
+```
+SFX EGALIK 
+
+    [ENDSWITH "q" STRIP]        # Agar bundan oldingi kelgan qo‘shimcha yoki o‘zak so‘z "q" harfi bilan tugasa (ENDSWITH "q"), "q" ni tashlab yubor (STRIP)
+    1SHB = "g‘im"
+    1SHK = "g‘imiz"
+    2SHB = "g‘ing"
+    2SHK = "g‘ingiz"
+    3SHB = "g‘i"
+
+	[ENDSWITH "[ai]"]           # Agar bundan oldin kelgan qo‘shimcha/o‘zak so‘z "a" yoki "i" harflaridan biri bilan tugasa
+    1SHB = "m"
+    1SHK = "miz"
+    2SHB = "ng"
+    2SHK = "ngiz"
+    3SHB = "si"
+
+	[CLASS .IL ONLYROOT]
+    [ENDSWITH "il" STRIP]       # singil => singlim, ko'ngil => ko'ngli
+    1SHB = "lim"
+    1SHK = "limiz"
+    2SHB = "ling"
+    2SHK = "lingiz"
+    3SHB = "li"
+
+END SFX
+```
+
+Bunda EGALIK.IL nomli alohida sinf hosil bo‘ladi. Chunki "singil" so‘zi kabi ba‘zi so‘zlar umumiy qoidalarga tushmaydi, harf almashishiga uchraydi. Hunspell da esa qolipli ifodalar va bunday holatlarni boshqarish imkoniyati cheklangan.
+Ushbu EGALIK to‘plami qaysidir TAG da uchrasa, o‘sha tegning alohida sinfi sifatida yaratiladi va lug‘atda bunday so‘zlarni quyidagicha ko‘rsatish mumkin:
+```
+kitob/OT
+singil/OT.IL
+```
+
 Qo‘shimchalar ketma-ketligini berish uchun TAG bloki ishlatiladi. Bitta so‘z turkumiga oid qoidalarni bitta shunda TAG bloki ostida yoziladi. Sintaksis:
 ```
 TAG <TURKUM_NOMI>
