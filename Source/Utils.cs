@@ -6,9 +6,9 @@ public class Utils
 
     public static (string Directory, string SearchPattern) SplitPatternAndDirectory(string fullPattern)
     {
-        string directory = Path.GetDirectoryName(fullPattern);
+        var directory = Path.GetDirectoryName(fullPattern);
 
-        string searchPattern = Path.GetFileName(fullPattern);
+        var searchPattern = Path.GetFileName(fullPattern);
 
         if (string.IsNullOrEmpty(directory))
         {
@@ -68,13 +68,13 @@ public class Utils
     {
         if (condition == ".") return true;
 
-        int posText = 0;
-        int posPattern = 0;
-        bool negate = false;
-        bool ingroup = false;
-        int groupBegin = 0;
-        int lenText = text.Length;
-        int lenPattern = condition.Length;
+        var posText = 0;
+        var posPattern = 0;
+        var negate = false;
+        var ingroup = false;
+        var groupBegin = 0;
+        var lenText = text.Length;
+        var lenPattern = condition.Length;
 
         char ch = text[posText];
 
@@ -163,9 +163,9 @@ public class Utils
     {
         if (condition.Length == 0) return 0;
 
-        int count = 0;
+        var count = 0;
 
-        bool ingroup = false;
+        var ingroup = false;
 
         foreach (var ch in condition)
         {
