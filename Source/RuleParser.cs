@@ -30,54 +30,54 @@ public record SuffixElement
     public string Suffix { get; set; } = "";
     public string MorphCode { get; set; } = "";
     public string Class { get; set; } = "";
-    public bool OnlyRoot { get; set; } = false;
+    public bool OnlyRoot { get; set; }
     public AffixCondition Condition { get; set; } = new();
 }
 
 // Qo'shimchalar to'plami
 public record SuffixSet
 {
-    public string Name { get; set; } = "";
-    public string MorphCode { get; set; } = "";
-    public bool HasClass { get; set; } = false;
-    public List<SuffixElement> Elements { get; set; } = new();
+    public string Name { get; init; } = "";
+    public string MorphCode { get; init; } = "";
+    public bool HasClass { get; init; }
+    public List<SuffixElement> Elements { get; init; } = [];
 }
 
 // Qoida ichidagi element
 public record TagElement
 {
-    public string Name { get; set; } = "";
-    public string MorphCode { get; set; } = "";
+    public string Name { get; init; } = "";
+    public string MorphCode { get; init; } = "";
     public string Text { get; set; } = "";
-    public List<string> Suffixes { get; set; } = new();
+    public List<string> Suffixes { get; init; } = [];
 }
 
 // Qoidani saqlash uchun
 public record TagSet
 {
-    public string Name { get; set; } = "";
-    public string MorphCode { get; set; } = "";
-    public List<TagElement> Elements { get; set; } = new();
+    public string Name { get; init; } = "";
+    public string MorphCode { get; init; } = "";
+    public List<TagElement> Elements { get; init; } = [];
 }
 
 // So'zlarni saqlash uchun
 public record WordElement
 {
-    public string Word { get; set; } = "";
-    public string Tag { get; set; } = "";
+    public string Word { get; init; } = "";
+    public string Tag { get; init; } = "";
 }
 
 public record TagAlternative
 {
-    public List<string> Items { get; set; } = new();
-    public bool IsOptional { get; set; } = false;
+    public List<string> Items { get; init; } = [];
+    public bool IsOptional { get; set; }
 }
 
 public record SuffixGrammar
 {
-    public Dictionary<string, SuffixSet> Suffixes { get; set; } = new();
-    public Dictionary<string, TagSet> Tags { get; set; } = new();
-    public List<WordElement> Words { get; set; } = new();
+    public Dictionary<string, SuffixSet> Suffixes { get; set; } = [];
+    public Dictionary<string, TagSet> Tags { get; set; } = [];
+    public List<WordElement> Words { get; set; } = [];
 }
 
 // Parser

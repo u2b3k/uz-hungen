@@ -9,7 +9,7 @@ public enum FlagType
 }
 
 // Dastur sozlamalari
-public record AppSettings
+public class AppSettings
 {
     public bool Use2FoldRefs { get; set; }
     public bool UseMorphCodes { get; set; }

@@ -4,36 +4,32 @@ namespace UzHunGen.Converter;
 
 public record SFXFlagItem
 {
-    public string Text { get; set; } = "";
-    public string Condition { get; set; } = "";
-    public string Strip { get; set; } = "";
-    public string MorphCode { get; set; } = "";
-    public string NextFlag { get; set; } = "";
+    public string Text { get; init; } = "";
+    public string Condition { get; init; } = "";
+    public string Strip { get; init; } = "";
+    public string MorphCode { get; init; } = "";
+    public string NextFlag { get; init; } = "";
 }
 public record SFXFlag
 {
-    public string TagName { get; set; } = "";
-    public string SetName { get; set; } = "";
-    public string FlagName { get; set; } = "";
-    public string MorphCode { get; set; } = "";
-    public List<SFXFlagItem> Lines { get; set; } = new();
-    public string ClassName { get; set; } = "";
-    public bool OnlyRoot { get; set; } = false;
+    public string TagName { get; init; } = "";
+    public string SetName { get; init; } = "";
+    public string FlagName { get; init; } = "";
+    public string ClassName { get; init; } = "";
+    public string MorphCode { get; init; } = "";
+    public bool OnlyRoot { get; init; } = false;
+    public List<SFXFlagItem> Lines { get; init; } = [];
 }
 
-public record AliasFlagItem
+public record AliasFlagItem (string ClassName = "", string FlagName = "", string SetName = "");
+
+public record AliasFlag ()
 {
-    public string ClassName { get; set; } = "";
-    public string FlagName { get; set; } = "";
-    public string SetName { get; set; } = "";
-}
-public record AliasFlag
-{
-    public string TagName { get; set; } = "";
-    public string ClassName { get; set; } = "";
-    public int AliasIndex { get; set; } = 0;
-    public string TextFlags { get; set; } = "";
-    public List<AliasFlagItem> Flags { get; set; } = new();
+    public string TagName { get; init; } = "";
+    public string ClassName { get; init; } = "";
+    public int AliasIndex { get; init; } = 0;
+    public string TextFlags { get; init; } = "";
+    public List<AliasFlagItem> Flags { get; init; } = [];
 }
 
 public class HunspellConverter
@@ -335,11 +331,14 @@ public class HunspellConverter
             }
             else
             {
-                var a = new AliasFlag();
-
-                a.TagName = s1;
-
-                a.Flags.Add(new AliasFlagItem() { ClassName = sfx.ClassName, FlagName = sfx.FlagName, SetName = sfx.SetName });
+                var a = new AliasFlag()
+                    {
+                        TagName = s1,
+                        Flags = new()
+                        {
+                            new AliasFlagItem() { ClassName = sfx.ClassName, FlagName = sfx.FlagName, SetName = sfx.SetName }
+                        }
+                    };
 
                 tagAliases.Add(s1, a);
             }
@@ -371,6 +370,7 @@ public class HunspellConverter
                 foreach (var f in group)
                 {
                     sb.Append(f.FlagName);
+
                     setName = f.SetName;
                 }
 
@@ -381,6 +381,7 @@ public class HunspellConverter
                 else
                 {
                     var g = entry.Flags.Where(f => f.SetName != setName);
+
                     foreach (var f in g)
                     {
                         sb.Append(f.FlagName);
