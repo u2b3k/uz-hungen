@@ -12,9 +12,11 @@ END SFX
 
 SFX SON-JAMLOV
     
-    [ENDSWITH "[aeiou]" STRIP]
+    [ENDSWITH "i" STRIP "i"]
     JML = "ovlon" 
-    [ENDSWITH "[^aeiou]"]
+    [ENDSWITH "a" STRIP "a"]
+    JML = "ovlon" 
+    [ENDSWITH "[^ai]"]
     JML = "ovlon"
     
 END SFX

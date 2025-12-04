@@ -38,19 +38,40 @@ SFX EGALIK
     3SHB = "i"
 
     [CLASS .IL ONLYROOT]
-    [ENDSWITH "il" STRIP]       # singil => singlim, ko'ngil => ko'ngli
+    [ENDSWITH "il" STRIP]       # singil => singlim
     1SHB = "lim"
     1SHK = "limiz"
     2SHB = "ling"
     2SHK = "lingiz"
     3SHB = "li"
 
-    [ENDSWITH "ar" STRIP]       # singil => singlim, ko'ngil => ko'ngli
+    [ENDSWITH "ar" STRIP]       # shahar => shahrim
     1SHB = "rim"
     1SHK = "rimiz"
     2SHB = "ring"
     2SHK = "ringiz"
     3SHB = "ri"
+
+    [ENDSWITH "im" STRIP]       # yarim => yarmim
+    1SHB = "mim"
+    1SHK = "mimiz"
+    2SHB = "ming"
+    2SHK = "mingiz"
+    3SHB = "mi"
+
+    [ENDSWITH "iz" STRIP]       # og'iz => og'zing
+    1SHB = "zim"
+    1SHK = "zimiz"
+    2SHB = "zing"
+    2SHK = "zingiz"
+    3SHB = "zi"
+
+    [ENDSWITH "un" STRIP]       # burun => burnim
+    1SHB = "nim"
+    1SHK = "nimiz"
+    2SHB = "ning"
+    2SHK = "ningiz"
+    3SHB = "ni"
     
 END SFX
 
