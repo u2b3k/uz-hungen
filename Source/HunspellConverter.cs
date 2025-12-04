@@ -31,15 +31,10 @@ public record AliasFlagItem
 public record AliasFlag
 {
     public string TagName { get; set; } = "";
-    public List<AliasFlagItem> Flags { get; set; } = new();
-}
-
-public record TagAliasMap
-{
-    public string TagName { get; set; } = "";
     public string ClassName { get; set; } = "";
     public int AliasIndex { get; set; } = 0;
-    public string Flags { get; set; } = "";
+    public string TextFlags { get; set; } = "";
+    public List<AliasFlagItem> Flags { get; set; } = new();
 }
 
 public class HunspellConverter
@@ -338,20 +333,20 @@ public class HunspellConverter
             }
         }
 
-        return tagAliases;
+        return SplitAliasesByClass(tagAliases);
     }
 
-    // Tegga mos alias indekslari va uning flaglarini yaratish
-    private Dictionary<string, TagAliasMap> CreateClassAliasFlags(Dictionary<string, AliasFlag> mapFlags)
+    // Aliaslarni class bo'yicha ajratib yuborish
+    private Dictionary<string, AliasFlag> SplitAliasesByClass(Dictionary<string, AliasFlag> afList)
     {
         // Har bir entry uchun flags ni ClassName bo'yicha guruhlash
         var sb = new StringBuilder();
         
-        var tagAlias = new Dictionary<string, TagAliasMap>();
+        var newList = new Dictionary<string, AliasFlag>();
         
         var aliasIndex = 0;
 
-        foreach (var (key, entry) in mapFlags)
+        foreach (var (key, entry) in afList)
         {
             var groupedFlags = entry.Flags.GroupBy(f => f.ClassName);
 
@@ -370,7 +365,7 @@ public class HunspellConverter
 
                 if (className.Length == 0)
                 {
-                    tagAlias.Add(entry.TagName, new TagAliasMap() { AliasIndex = ++aliasIndex, Flags = sb.ToString(), TagName = entry.TagName });
+                    newList.Add(entry.TagName, new AliasFlag() { AliasIndex = ++aliasIndex, TextFlags = sb.ToString(), TagName = entry.TagName });
                 }
                 else
                 {
@@ -380,16 +375,16 @@ public class HunspellConverter
                         sb.Append(f.FlagName);
                     }
 
-                    tagAlias.Add(entry.TagName + className, new TagAliasMap() { AliasIndex = ++aliasIndex, ClassName = className, Flags = sb.ToString(), TagName = entry.TagName + className });
+                    newList.Add(entry.TagName + className, new AliasFlag() { AliasIndex = ++aliasIndex, ClassName = className, TextFlags = sb.ToString(), TagName = entry.TagName + className });
                 }
             }
         }
 
-        return tagAlias;
+        return newList;
     }
 
     // AFF fayl yaratish
-    private void WriteToAFFFile(List<SFXFlag> sfxList, Dictionary<string, AliasFlag> mapFlags, Dictionary<string, TagAliasMap> tagAlias)
+    private void WriteToAFFFile(List<SFXFlag> sfxList, Dictionary<string, AliasFlag> afList)
     {
 
         var sb = new StringBuilder();
@@ -406,13 +401,13 @@ public class HunspellConverter
         // AF Flags2
         if (_options.UseAliases)
         {
-            sb.AppendLine("AF " + tagAlias.Count);
+            sb.AppendLine("AF " + afList.Count);
 
-            foreach (var (key, entry) in tagAlias)
+            foreach (var (key, entry) in afList)
             {
-                sb.AppendLine($"AF {entry.Flags} # {entry.AliasIndex} {entry.TagName}");
+                sb.AppendLine($"AF {entry.TextFlags} # {entry.AliasIndex} {entry.TagName}");
 
-                if (_options.ShowGrammar) Console.WriteLine(entry.AliasIndex + ": " + entry.TagName + " = " + entry.Flags);
+                if (_options.ShowGrammar) Console.WriteLine(entry.AliasIndex + ": " + entry.TagName + " = " + entry.TextFlags);
             }
             sb.AppendLine();
         }
@@ -434,7 +429,7 @@ public class HunspellConverter
     }
 
     // DIC fayl yaratish
-    private void WriteToDICFile(Dictionary<string, TagAliasMap> tagAliases)
+    private void WriteToDICFile(Dictionary<string, AliasFlag> aliasList)
     {
         var sb = new StringBuilder();
 
@@ -446,16 +441,16 @@ public class HunspellConverter
                 var ff = new StringBuilder();
                 foreach (var tag in tags)
                 {
-                    if (tagAliases.ContainsKey(tag))
+                    if (aliasList.ContainsKey(tag))
                     {
                         if (_options.UseAliases)
                         {
-                            ff.Append(tagAliases[tag].AliasIndex);
+                            ff.Append(aliasList[tag].AliasIndex);
                             ff.Append('/');
                         }
                         else
                         {
-                            ff.Append(tagAliases[tag].Flags);
+                            ff.Append(aliasList[tag].Flags);
                         }
                     }
                 }
@@ -478,13 +473,11 @@ public class HunspellConverter
 
         var sfxList = CreateSFXFlags();
 
-        var mapFlags = CreateAliasFlags(sfxList);
+        var afList = CreateAliasFlags(sfxList);
 
-        var tagAliases = CreateClassAliasFlags(mapFlags);
+        WriteToAFFFile(sfxList, afList);
 
-        WriteToAFFFile(sfxList, mapFlags, tagAliases);
-
-        WriteToDICFile(tagAliases);
+        WriteToDICFile(afList);
 
     }
 
