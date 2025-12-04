@@ -113,6 +113,9 @@ SFX YUKLAMA
     DIR = "dir"
     DA = "da"
     KU = "ku"
+    MIKAN? = "mikan"
+    MIDI? = "midi"
+    DIRDA = "dirda"
 
 END SFX
 
@@ -124,11 +127,18 @@ SFX KICHRAYTMA
 
 END SFX
 
+SFX SIFAT_YASOVCHI
+    
+    _ = "li"
+    
+END SFX
+
 # ===== OT so'z turkumi uchun qoidalar ===== 
 
 TAG OT 
 
     _ = [KICHRAYTMA] + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
     _ = [TASDIQ] + [YUKLAMA]
+    _ = [SIFAT_YASOVCHI] + [KO'PLIK] + [YUKLAMA]
 
 END TAG
