@@ -1,22 +1,47 @@
 ﻿# =============================================================
 # SON so'z turkumi uchun qoidalar
 # =============================================================
-SFX SON 
+SFX SON-TARTIB 
     
     [ENDSWITH "[aeiou]"]
     TRT = "nchi" 
     [ENDSWITH "[^aeiou]"]
     TRT = "inchi"
+
+END SFX
+
+SFX SON-JAMLOV
+    
     [ENDSWITH "[aeiou]" STRIP]
     JML = "ovlon" 
     [ENDSWITH "[^aeiou]"]
     JML = "ovlon"
+    
+END SFX
+
+SFX SON-DONA
+
+    [ENDSWITH "r" STRIP]
+    DONA = "tta"
+    [ENDSWITH "[^r]"]
+    DONA = "ta"
+
+END SFX
+
+SFX SON-TAQSIM
+
+    [ENDSWITH "r" STRIP]
+    DONA = "ttadan"
+    [ENDSWITH "[^r]"]
+    DONA = "tadan"
 
 END SFX
 
 TAG SON
 
-    _ = [SON]
+    _ = SON-TARTIB + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = SON-DONA + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = SON-JAMLOV + [KELISHIK] + [YUKLAMA]
 
 END TAG
 
