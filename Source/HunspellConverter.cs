@@ -395,9 +395,9 @@ public class HunspellConverter
     }
 
     // Morfologik kodlarni aliaslarini yaratish
-    private Dictionary<string, AliasFlag> CreateMorphAliases(List<SFXFlag> sfxList)
+    private Dictionary<string, int> CreateMorphAliases(List<SFXFlag> sfxList)
     {
-        var list = new Dictionary<string, AliasFlag>();
+        var list = new Dictionary<string, int>();
         
         var index = 0;
 
@@ -405,7 +405,7 @@ public class HunspellConverter
         {
             foreach (var item in sfx.Lines)
             {
-                if (!list.ContainsKey(item.MorphCode)) list.Add(item.MorphCode, new AliasFlag() { AliasIndex = ++index });
+                if (!list.ContainsKey(item.MorphCode)) list.Add(item.MorphCode, ++index);
             }
         }
 
@@ -413,7 +413,7 @@ public class HunspellConverter
     }
 
     // AFF fayl yaratish
-    private void WriteToAFFFile(List<SFXFlag> sfxList, Dictionary<string, AliasFlag> afList, Dictionary<string, AliasFlag> morphList)
+    private void WriteToAFFFile(List<SFXFlag> sfxList, Dictionary<string, AliasFlag> afList, Dictionary<string, int> morphList)
     {
 
         var sb = new StringBuilder();
@@ -463,7 +463,7 @@ public class HunspellConverter
             {
                 var morphIndex = 0;
 
-                if (_options.UseMorphCodes && morphList.ContainsKey(item.MorphCode)) morphIndex = morphList[item.MorphCode].AliasIndex;
+                if (_options.UseMorphCodes && morphList.ContainsKey(item.MorphCode)) morphIndex = morphList[item.MorphCode];
 
                 sb.AppendLine($"SFX {sfx.FlagName} {item.Strip} {item.Text} {item.Condition}" + (morphIndex > 0 ? $" {morphIndex}" : ""));
             }
