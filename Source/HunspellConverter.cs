@@ -39,15 +39,26 @@ public record AliasFlag
 
 public class HunspellConverter
 {
-    public static int _uniqueId = 0;
+    private int _uniqueId = 0;
 
-    private AppSettings _options = new();
+    private AppSettings _options;
 
-    private SuffixGrammar _grammar = new();
+    private SuffixGrammar _grammar;
+
+    private const string OutputAffPath = @".\Generated\uz.aff";
+
+    private const string OutputDicPath = @".\Generated\uz.dic";
 
     public HunspellConverter(AppSettings options)
     {
         _options = options;
+
+        _grammar = new SuffixGrammar
+        {
+            Suffixes = [],
+            Tags = [],
+            Words = []
+        };
 
         AddRuleFiles(_options.RuleFiles);
 
@@ -228,7 +239,7 @@ public class HunspellConverter
     }
 
     // Ikkita to'plamdagi qo'shimchalarni biriktirish
-    public static SuffixSet JoinSuffixSets(SuffixSet set1, SuffixSet set2)
+    public SuffixSet JoinSuffixSets(SuffixSet set1, SuffixSet set2)
     {
         var result = new SuffixSet();
 
@@ -339,9 +350,7 @@ public class HunspellConverter
     // Aliaslarni class bo'yicha ajratib yuborish
     private Dictionary<string, AliasFlag> SplitAliasesByClass(Dictionary<string, AliasFlag> afList)
     {
-        // Har bir entry uchun flags ni ClassName bo'yicha guruhlash
-        var sb = new StringBuilder();
-        
+       
         var newList = new Dictionary<string, AliasFlag>();
         
         var aliasIndex = 0;
@@ -354,9 +363,10 @@ public class HunspellConverter
             {
                 var className = group.Key;
 
-                sb.Clear();
+                var sb = new StringBuilder();
 
                 var setName = "";
+
                 foreach (var f in group)
                 {
                     sb.Append(f.FlagName);
@@ -424,7 +434,7 @@ public class HunspellConverter
             sb.AppendLine();
         }
 
-        File.WriteAllText(@".\Generated\uz.aff", sb.ToString());
+        File.WriteAllText(OutputAffPath, sb.ToString());
 
     }
 
@@ -465,7 +475,7 @@ public class HunspellConverter
         }
         sb.Insert(0, _grammar.Words.Count + "\n");
 
-        File.WriteAllText(@".\Generated\uz.dic", sb.ToString());
+        File.WriteAllText(OutputDicPath, sb.ToString());
     }
 
     public void Convert()
