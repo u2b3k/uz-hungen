@@ -39,11 +39,18 @@ SFX SON-TAQSIM
 
 END SFX
 
+SFX SON-LIK
+    
+    _ = "lik"
+
+END SFX
+
 TAG SON
 
     _ = SON-TARTIB + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
-    _ = SON-DONA + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = SON-DONA + [SON-LIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
     _ = SON-JAMLOV + [KELISHIK] + [YUKLAMA]
+    _ = SON-LIK + [EGALIK] + [KELISHIK] + [YUKLAMA]
 
 END TAG
 
