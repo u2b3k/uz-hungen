@@ -1,7 +1,6 @@
-﻿using System.Text;
-using UzHunGen.Converter;
+﻿using UzHunGen.Converter;
 
-Console.OutputEncoding = Encoding.UTF8;
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 var options = new CommandLineParser().Parse(args);
 
