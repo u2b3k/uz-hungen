@@ -1,5 +1,7 @@
 ### Morfologik kodlar
 
+K - Ko‘plik
+
 KL - Kelishik
 
 &nbsp;&nbsp;&nbsp;TSH - Tushum
