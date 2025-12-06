@@ -1,1 +1,1 @@
-ss
+# Morfologik kodlar
