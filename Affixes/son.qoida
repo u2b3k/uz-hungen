@@ -1,7 +1,7 @@
 ﻿# =============================================================
 # SON so'z turkumi uchun qoidalar
 # =============================================================
-SFX SON-TARTIB 
+SFX SON.TARTIB("TT")
     
     [ENDSWITH "[aeiou]"]
     TRT = "nchi" 
@@ -10,7 +10,7 @@ SFX SON-TARTIB
 
 END SFX
 
-SFX SON-JAMLOV
+SFX SON.JAMLOV("JM")
     
     [ENDSWITH "i" STRIP "i"]
     JML = "ovlon" 
@@ -21,16 +21,17 @@ SFX SON-JAMLOV
     
 END SFX
 
-SFX SON-DONA
+SFX SON.DONA("DN")
 
     [ENDSWITH "r" STRIP]
-    DONA = "tta"
+    _ = "tta"
+    
     [ENDSWITH "[^r]"]
-    DONA = "ta"
+    _ = "ta"
 
 END SFX
 
-SFX SON-TAQSIM
+SFX SON.TAQSIM("TQ")
 
     [ENDSWITH "r" STRIP]
     DONA = "ttadan"
@@ -39,7 +40,7 @@ SFX SON-TAQSIM
 
 END SFX
 
-SFX SON-LIK
+SFX SON.SIFAT("SF")
     
     _ = "lik"
 
@@ -47,10 +48,10 @@ END SFX
 
 TAG SON
 
-    _ = SON-TARTIB + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
-    _ = SON-DONA + [SON-LIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
-    _ = SON-JAMLOV + [KELISHIK] + [YUKLAMA]
-    _ = SON-LIK + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = SON.TARTIB + [OT.KO'PLIK] + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]
+    _ = SON.DONA + [SON.SIFAT] + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]
+    _ = SON.JAMLOV + [OT.KELISHIK] + [OT.YUKLAMA]
+    _ = SON.SIFAT + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]
 
 END TAG
 

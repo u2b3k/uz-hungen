@@ -1,6 +1,6 @@
 ﻿# ===== Zamon qo'shimchalari ===== 
-
-SFX ZAMON
+#
+SFX FL.ZAMON1("ZM")
     
     O'T = "gan" 
     HOZ = "yap" 
@@ -13,7 +13,7 @@ SFX ZAMON
 
 END SFX
 
-SFX ZAMON2
+SFX FL.ZAMON2("ZM")
     
     O'T = "gan"
 
@@ -27,8 +27,8 @@ SFX ZAMON2
 END SFX
 
 # ===== Kishiik qo'shimchalari ===== 
-
-SFX KISHILIK
+#
+SFX FL.KISHILIK("KSH")
     
     1SHB = "man"
     1SHK = "miz"
@@ -42,27 +42,27 @@ SFX KISHILIK
 END SFX
 
 # ===== Bo'lishsiz fe'l qo'shimchasi ===== 
-
-SFX BO'LISHSIZ
+#
+SFX FL.BO'LISHSIZ("BSH")
     
-    _ = "ma"
+    "ma"
 
 END SFX
 
-SFX F1
+SFX F1("CH")
     
-    _ = "moqchi"
-    _ = "moqchimas"
+    "moqchi"
+    "moqchimas"
 
 END SFX
 
-SFX F2
+SFX F2("LIK")
     
-    _ = "moqlik"
+    "moqlik"
 
 END SFX
 
-SFX F3-KELISHIK
+SFX F3.KELISHIK("KL")
     
     TSH = "moqni"
     QRT = "moqning"
@@ -72,39 +72,39 @@ SFX F3-KELISHIK
 
 END SFX
 
-SFX F1-YUKLAMA
+SFX F1.YUKLAMA("YK")
     
-    MI? = "mi"
-    DA! = "da"
-    KU! = "ku"
+    "mi"
+    "da"
+    "ku"
 
 END SFX
 
-SFX F1-LIK 
+SFX F1.LIK("SF")
     
-    LIK = "lik" 
+    "lik" 
     
 END SFX
 
 # ===== FE'L so'z turkumi uchun qoidalar ===== 
 
-TAG FE'L
+TAG FL
 
     [ENDSWITH "moq" STRIP "moq"]
 
     # qilmoqchi + ..
-    _ = F1 + [KISHILIK] + [F1-YUKLAMA]
-    _ = F1 + F1-LIK + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = F1 + [FL.KISHILIK] + [F1.YUKLAMA]
+    _ = F1 + F1.LIK + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]
 
     # qilmoqlik + ..
-    _ = F2 + [EGALIK] + [KELISHIK] + [YUKLAMA]
+    _ = F2 + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]
 
     # qilmoq + ..
-    _ = F3-KELISHIK + [YUKLAMA]
+    _ = F3.KELISHIK + [OT.YUKLAMA]
 
     # qil + [ma] + gan|yap|a,y + 
-    _ = [BO'LISHSIZ] + ZAMON + [KISHILIK]
-    _ = [BO'LISHSIZ] + ZAMON + KISHILIK + F1-YUKLAMA
-    _ = [ZAMON2] + [KISHILIK]
+    _ = [FL.BO'LISHSIZ] + FL.ZAMON1 + [FL.KISHILIK]
+    _ = [FL.BO'LISHSIZ] + FL.ZAMON1 + FL.KISHILIK + F1.YUKLAMA
+    _ = [FL.ZAMON2] + [FL.KISHILIK]
 
 END TAG

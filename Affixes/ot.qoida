@@ -1,6 +1,10 @@
-﻿# ===== Egalik qo'shimchalari ===== 
+﻿SFX OT.KO'PLIK("K")             
 
-SFX EGALIK 
+    _ = "lar" 
+    
+END SFX
+
+SFX OT.EGALIK("EG")             
 
     [ENDSWITH "q" STRIP]        # quloq => qulog'im, boshog => boshog'i
     1SHB = "g‘im"
@@ -75,34 +79,7 @@ SFX EGALIK
     
 END SFX
 
-
-# ===== Tasdiq qo'shimchalari ===== 
-
-SFX TASDIQ
-
-    1SHB = "man"
-    1SHK = "miz"
-    K-1SHB = "larman"
-    K-1SHK = "larmiz"
-    2SHB = "san"
-    2SHK = "siz"
-    K-2SHB = "larsan"
-    K-2SHK = "larsiz"
-    3SHK = "lar"
-
-END SFX
-
-# ===== Ko'plik qo'shimchasi ===== 
-
-SFX KO'PLIK 
-
-    LAR = "lar" 
-
-END SFX
-
-# ===== Kelishik qo'shimchalari ===== 
-
-SFX KELISHIK 
+SFX OT.KELISHIK("KL")
 
     TSH = "ni"
     QRT = "ning"
@@ -125,30 +102,60 @@ SFX KELISHIK
 
 END SFX
 
-# ===== Yuklama qo'shimchalar ===== 
+SFX OT.SHAXS("SHS")
 
-SFX YUKLAMA
-    
-    MI? = "mi"
-    CHI? = "chi"
-    DIR = "dir"
-    DA = "da"
-    KU = "ku"
-    MIKAN? = "mikan"
-    MIDI? = "midi"
-    DIRDA = "dirda"
+    1SHB = "man"
+    1SHK = "miz"
+    2SHB = "san"
+    2SHK = "siz"
+    2SHB = "sanlar"
+    2SHK = "sizlar"
+    3SHB = "dir"
+    3SHB = "dirlar"
 
 END SFX
 
-SFX KICHRAYTMA
+SFX OT.YUKLAMA("YK") # Savol
     
-    CHA = "cha"
-    DEK = "dek"
-    SIMON = "simon"
+    _ = "mi"
+    _ = "chi"
+    _ = "dir"
+    _ = "da"
+    _ = "ku"
 
 END SFX
 
-SFX SIFAT_YASOVCHI
+SFX OT.YUKLAMA.GT("YK-GT") # Gumon/Tahmin
+    
+    1SHB = "mikanman"
+    1SHB = "mikanmiz"
+    2SHB = "mikansan"
+    2SHK = "mikansiz"
+    2SHK = "mikansanlar"
+    2SHK = "mikansizlar"
+    3SHB = "mikan"
+    3SHK = "mikanlar"
+
+    1SHB = "midim"
+    1SHK = "midik"
+    2SHB = "miding"
+    2SHK = "midinglar"
+    2SHK = "midingiz"
+    2SHK = "midingizlar"
+    3SHB = "midi"
+    3SHK = "midilar"
+
+END SFX
+
+SFX OT.KICHRAYTMA("KCH")
+    
+    _ = "cha"
+    _ = "dek"
+    _ = "simon"
+
+END SFX
+
+SFX OT.SIFAT("SF")
     
     _ = "li"
     
@@ -158,8 +165,11 @@ END SFX
 
 TAG OT 
 
-    _ = [KICHRAYTMA] + [KO'PLIK] + [EGALIK] + [KELISHIK] + [YUKLAMA]
-    _ = [TASDIQ] + [YUKLAMA]
-    _ = [SIFAT_YASOVCHI] + [KO'PLIK] + [YUKLAMA]
+    _ = [OT.KICHRAYTMA] + [OT.KO'PLIK] + [OT.EGALIK] + [OT.KELISHIK] + [OT.YUKLAMA]         # kitob + cha + lar + imiz + dan + mi?
+    _ = [OT.KICHRAYTMA] + [OT.SIFAT] + [OT.KO'PLIK] + [OT.YUKLAMA]                          # olma + li + lar + ku?
+
+    _ = [OT.KO'PLIK] + OT.SHAXS + [OT.YUKLAMA]                                              # odam + lar + miz + mi?
+    _ = [OT.KO'PLIK] + [OT.EGALIK] + OT.YUKLAMA.GT                                          # do'st + lar + im + midingiz
+    
 
 END TAG

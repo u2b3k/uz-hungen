@@ -1,4 +1,4 @@
-﻿SFX OLM-KISHILIK
+﻿SFX OLM-KISHILIK("KSH")
 	
 	[ENDSWITH "[aeiou]"]
 	_ = "nga"
@@ -7,7 +7,7 @@
 
 END SFX
 
-TAG OLMOSH-KR
+TAG OLMOSH-KR("KRS")
 	
 	_ = OLM-KISHILIK
 
