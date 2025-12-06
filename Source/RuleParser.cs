@@ -67,6 +67,12 @@ public record WordElement
     public string Tag { get; init; } = "";
 }
 
+public record WordSet
+{
+    public string FileName { get; init; } = "";
+    public List<WordElement> Elements { get; init; } = [];
+}
+
 public record TagAlternative
 {
     public List<string> Items { get; init; } = [];
@@ -77,7 +83,7 @@ public record SuffixGrammar
 {
     public Dictionary<string, SuffixSet> Suffixes { get; set; } = [];
     public Dictionary<string, TagSet> Tags { get; set; } = [];
-    public List<WordElement> Words { get; set; } = [];
+    public List<WordSet> Words { get; set; } = [];
 }
 
 // Parser

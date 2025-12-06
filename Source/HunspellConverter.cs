@@ -42,9 +42,7 @@ public class HunspellConverter
 
     private SuffixGrammar _grammar;
 
-    private const string OutputAffPath = @".\Generated\uz.aff";
-
-    private const string OutputDicPath = @".\Generated\uz.dic";
+    private const string OutputPath = @".\Generated";
 
     public HunspellConverter(AppSettings options)
     {
@@ -104,19 +102,23 @@ public class HunspellConverter
     {
         string[] lines = File.ReadAllLines(file);
 
+        var wordSet = new WordSet() { FileName = file };
+
         foreach (string line in lines)
         {
             var i = line.IndexOf('/');
 
             if (i < 0)
             {
-                _grammar.Words.Add(new WordElement() { Word = line });
+                wordSet.Elements.Add(new WordElement() { Word = line });
             }
             else
             {
-                _grammar.Words.Add(new WordElement() { Word = line.Substring(0, i), Tag = line.Substring(i + 1).Trim() });
+                wordSet.Elements.Add(new WordElement() { Word = line.Substring(0, i), Tag = line.Substring(i + 1).Trim() });
             }
         }
+
+        _grammar.Words.Add(wordSet);
 
         Console.WriteLine($"- Lug'atlar fayli yuklandi: {file}");
     }
@@ -417,13 +419,16 @@ public class HunspellConverter
     // AFF fayl yaratish
     private void WriteToAFFFile(List<SFXFlag> sfxList, Dictionary<string, AliasFlag> afList, Dictionary<string, int> morphList)
     {
+        var filePath = OutputPath + "\\uz.aff";
 
         var sb = new StringBuilder();
 
         sb.AppendLine("LANG uz_UZ");
         sb.AppendLine("SET UTF-8");
         sb.AppendLine("FLAG long");
-        sb.AppendLine("WORDCHARS -‘");
+        sb.AppendLine("TRY - abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZʻʼ");
+        sb.AppendLine("KEY qwertyuiop|asdfghjkl|zxcvbnm");
+        sb.AppendLine("WORDCHARS -.'ʻʼ‘’");
         sb.AppendLine();
 
         // Alias larni faylga yozish
@@ -482,43 +487,74 @@ public class HunspellConverter
             sb.AppendLine();
         }
 
-        File.WriteAllText(OutputAffPath, sb.ToString());
+        File.WriteAllText(filePath, sb.ToString());
 
     }
 
     // DIC fayl yaratish
     private void WriteToDICFile(Dictionary<string, AliasFlag> aliasList)
     {
+        var filePath = OutputPath + "\\uz.dic";
+
         var sb = new StringBuilder();
 
-        foreach (var word in _grammar.Words)
-        {
-            if (string.IsNullOrEmpty(word.Word)) continue;
+        var count = 0;
 
-            if (word.Tag.Length > 0)
+        foreach (var wordSet in _grammar.Words)
+        {
+            foreach (var wordItem in wordSet.Elements)
             {
-                var tags = word.Tag.Split("/");
-                var ff = new StringBuilder();
-                foreach (var tag in tags)
+                if (string.IsNullOrEmpty(wordItem.Word)) continue;
+
+                sb.Append(wordItem.Word);
+
+                if (wordItem.Tag.Length > 0)
                 {
-                    if (aliasList.ContainsKey(tag))
+                    var tags = wordItem.Tag.Split("/");
+                    
+                    var sbFlags = new StringBuilder();
+
+                    foreach (var tag in tags)
                     {
-                        ff.Append(aliasList[tag].AliasIndex);
-                        ff.Append('/');
+                        if (aliasList.ContainsKey(tag))
+                        {
+                            sbFlags.Append("/");
+                            sbFlags.Append(aliasList[tag].AliasIndex);
+                        }
                     }
+                    sb.Append(sbFlags.ToString());
                 }
-                var flags = ff.ToString();
-                if (flags.Length > 0) flags = flags.Substring(0, flags.Length - 1);
-                sb.AppendLine(word.Word + "/" + flags);
+
+                sb.AppendLine();
+
+                count++;
             }
-            else
+
+            if (!_options.UseSingleDic)
             {
-                sb.AppendLine(word.Word);
+                if (count > 0)
+                {
+                    sb.Insert(0, count + "\n");
+
+                    filePath = OutputPath + "\\uz-" + Path.GetFileNameWithoutExtension(wordSet.FileName) + ".dic";
+
+                    File.WriteAllText(filePath, sb.ToString());
+
+                    sb = new StringBuilder();
+
+                    count = 0;
+                }
             }
         }
-        sb.Insert(0, _grammar.Words.Count + "\n");
 
-        File.WriteAllText(OutputDicPath, sb.ToString());
+        if (!_options.UseSingleDic) return;
+
+        if (count > 0)
+        {
+            sb.Insert(0, count + "\n");
+
+            File.WriteAllText(filePath, sb.ToString());
+        }
     }
 
     public void Convert()
