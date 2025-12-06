@@ -8,13 +8,27 @@
 END SFX
 
 SFX SON.JAMLOV("JM")
-    
-    [ENDSWITH "i" STRIP "i"]
-    JML = "ovlon" 
+
     [ENDSWITH "a" STRIP "a"]
+    JML = "ov"     
+    JML = "ovlon"     
+    [ENDSWITH "i" STRIP "i"]
+    JML = "ov" 
     JML = "ovlon" 
     [ENDSWITH "[^ai]"]
+    JML = "ov"
     JML = "ovlon"
+    
+END SFX
+
+SFX SON.JAMLOV2("JM")
+    
+    [ENDSWITH "a" STRIP "a"]
+    JML = "ala" 
+    [ENDSWITH "i" STRIP "i"]
+    JML = "ala" 
+    [ENDSWITH "[^ai]"]
+    JML = "ala" 
     
 END SFX
 
